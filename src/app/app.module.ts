@@ -1,3 +1,4 @@
+import { UserService } from './shared/user.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -43,7 +44,7 @@ const firebaseAuthConfig = {
     ])
 
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

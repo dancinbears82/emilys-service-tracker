@@ -2641,6 +2641,7 @@ input[type="search"] {
 }
 .form-group {
   margin-bottom: 15px;
+  padding-left: 15px;
 }
 .radio,
 .checkbox {
@@ -6962,4 +6963,16 @@ button.close {
 }
 .panel-primary .panel-title {
   color: #fff;
+}
+
+
+.userimg {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  margin-right: 10px;
 }

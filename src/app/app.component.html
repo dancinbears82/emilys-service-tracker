@@ -8,9 +8,10 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#" (click)="LoginModal.open()">Login</a></li>
+				<li><img *ngIf="user.uid" class="userimg" src="{{user.photoURL}}"> {{user.name}}</li>
+				<li><a href="#" (click)="LoginModal.open()" *ngIf="!user.uid">Login</a></li>
 				<!--<button type="button" class="btn btn-default" (click)="LoginModal.open()">test</button>-->
-
+				<li><a href="#" (click)="Logout()" *ngIf="user.uid">Logout</a></li>
 
 			</ul>
 		</div>
@@ -38,7 +39,9 @@
 	</form>
 
 
-	<modal-footer [show-default-buttons]="true"></modal-footer>
+	<modal-footer>
+		<input type="image" src="/googlelogin.png" alt="Submit" class="googleButton" align="left" (click)="LoginGoogle()">
+	</modal-footer>
 </modal>
 
 
