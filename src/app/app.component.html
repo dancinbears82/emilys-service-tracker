@@ -8,7 +8,7 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><img *ngIf="user.uid" class="userimg" src="{{user.photoURL}}"> {{user.name}}</li>
+				<li class="name"><img *ngIf="user.uid" class="userimg" src="{{user.photoURL}}"> {{user.name}}</li>
 				<li><a href="#" (click)="LoginModal.open()" *ngIf="!user.uid">Login</a></li>
 				<!--<button type="button" class="btn btn-default" (click)="LoginModal.open()">test</button>-->
 				<li><a href="#" (click)="Logout()" *ngIf="user.uid">Logout</a></li>
@@ -43,6 +43,40 @@
 		<input type="image" src="/googlelogin.png" alt="Submit" class="googleButton" align="left" (click)="LoginGoogle()">
 	</modal-footer>
 </modal>
+
+<form *ngIf="user.uid" class="form-horizontal">
+	<fieldset>
+		<legend></legend>
+		<div class="form-group">
+			<label class="col-lg-2 control-label" for="inputVehicle">Enter Vehicle</label>
+			<div class="col-lg-10">
+				<input class="form-control" id="inputVehicle" [(ngModel)]="newVehicle" type="text" placeholder="Vehicle">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-10 col-lg-offset-2">
+				<button class="btn btn-primary" type="submit" (click)="AddVehicle()">Add Vehicle</button>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="form-group">
+			<label class="col-lg-2 control-label" for="inputVehicle">Vehicle List</label>
+			<div class="col-lg-8">
+				<select class="form-control" multiple="">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</div>
+		</div>
+
+
+	</fieldset>
+</form>
 
 
 <!--<div tabindex="-1" id="LoginModal" role="dialog">

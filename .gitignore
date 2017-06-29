@@ -41,3 +41,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+*.log
+/Functions
+	git add --all
+	git commit -m “Initial Setup”
+
