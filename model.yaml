@@ -1,0 +1,46 @@
+
+
+vehicles:
+    u00001:
+        vehicle:
+            v00001: Ford Mustang
+            v00002: Saturn Outlook
+            v00003: Ford F150
+
+
+services:
+    u00001:
+        v00001:
+            service:
+                s00001:
+                    date: 1/08/2015
+                    description: Oil Change
+                s00002:
+                    date: 3/01/2015
+                    description: Tire installation
+                s00003:
+                    date: 4/12/2015
+                    description: Oil Change
+
+
+service-details:
+    u00001:
+        s00001:
+            details:
+                d00001:
+                    item: Alternator
+                    price: '120'
+                    discount: ''
+                d00002:
+                    item: Labor for Alternator
+                    price: '65'
+                    discount: ''
+                d00003:
+                    item: Show Towels
+                    price: ''
+                    discount: ''
+                d00004:
+                    item: Oil Change
+                    price: '39'
+                    discount: '10'
+        

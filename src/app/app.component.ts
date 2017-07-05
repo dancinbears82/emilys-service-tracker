@@ -1,12 +1,11 @@
 import { VehicleService } from './vehicle.service';
-import { Component } from '@angular/core';
-import { UserService } from "./shared/user.service";
-import { User } from "./shared/user";
-
+import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 import { AngularFireAuth } from "angularfire2/auth";
+import { AngularFireAuthModule } from "angularfire2/auth";
 import * as firebase from 'firebase/app';
 import { Observable } from "rxjs/Observable";
+import { Router } from "@angular/router";
 
 
 
@@ -17,43 +16,63 @@ import { Observable } from "rxjs/Observable";
 })
 
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+  //vehicleService: any;
+  userService: any;
+  vehicles: FirebaseListObservable<any[]>;
   title = 'aap works!';
   user: Observable<firebase.User>;;
-  newVehicle: string;
-  vehicleList: FirebaseListObservable<any[]>;
+  newVehicle: any;
+
+
+
 
   constructor(private db: AngularFireDatabase,
-    public auth: AngularFireAuth) 
- {
-   this.vehicleList =db.list("vehicleList");
-   this.user = auth.authState;
+    private auth: AngularFireAuth, private router: Router, private vehicleService: VehicleService) {
+    //  this.vehicleList = db.list('vehicleList');
+    this.user = auth.authState;
   }
 
   ngOnInit() {
-    this.userService.user$.subscribe(user => this.user = user)
+    //this.userService.user$.subscribe(user => this.user = user)
+
+    this.vehicles = this.vehicleService.getVehicles();
+
   }
 
   LoginGoogle() {
     console.log("login button pressed");
-    this.userService.login();
+    this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    console.log("logged in ", this.user)
+
   };
 
   Logout() {
     console.log("logout button pressed");
-    this.userService.logout();
+    this.auth.auth.signOut();
   };
 
 
-  AddVehicle() {
+  addVehicle(vehicle: string) {
+    this.newVehicle = vehicle;
+    console.log("we are here", this.newVehicle);
     if (!this.newVehicle || this.newVehicle.trim() == '') {
       return;
     }
     else {
       console.log("newVehicle = ", this.newVehicle);
       this.vehicleService.addNewVehicle(this.newVehicle);
+
     }
   }
+
+  deleteVehicle(key: string) {
+    this.vehicleService.deleteVehicle(key);
+  }
+
+
+
+
 
 
 

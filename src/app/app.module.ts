@@ -1,9 +1,8 @@
 import { VehicleService } from './vehicle.service';
-import { UserService } from './shared/user.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule, Component } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -18,12 +17,12 @@ import { AngularFireAuthModule } from "angularfire2/auth";
 
 
 const firebaseDatabaseConfig = {
-  "apiKey": "AIzaSyBp7dpH9bcC4cSEUakIBq2FqBPcP_pe0zQ",
-  "databaseURL": "https://emilys-service-tracker.firebaseio.com",
-  "storageBucket": "emilys-service-tracker.appspot.com",
-  "authDomain": "emilys-service-tracker.firebaseapp.com",
-  "messagingSenderId": "41467514844",
-  "projectId": "emilys-service-tracker"
+  apiKey: "AIzaSyBp7dpH9bcC4cSEUakIBq2FqBPcP_pe0zQ",
+  authDomain: "emilys-service-tracker.firebaseapp.com",
+  databaseURL: "https://emilys-service-tracker.firebaseio.com",
+  projectId: "emilys-service-tracker",
+  storageBucket: "emilys-service-tracker.appspot.com",
+  messagingSenderId: "41467514844"
 };
 
 
@@ -37,6 +36,7 @@ const firebaseDatabaseConfig = {
     Ng2Bs3ModalModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseDatabaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -49,7 +49,7 @@ const firebaseDatabaseConfig = {
     ])
 
   ],
-  providers: [UserService, VehicleService],
+  providers: [VehicleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse">
 	<div class="container">
-		<div class="navbar-header">
+		<div class="navbar-header header">
 			<h1>
 				Welcome to the Garage
 			</h1>
@@ -8,10 +8,10 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="name"><img *ngIf="user.uid" class="userimg" src="{{user.photoURL}}"> {{user.name}}</li>
-				<li><a href="#" (click)="LoginModal.open()" *ngIf="!user.uid">Login</a></li>
+				<li class="name"><img *ngIf="(user | async)?.uid" class="userimg" src="{{(user | async)?.photoURL}}" /> {{(user | async)?.displayName}}</li>
+				<li><a href="#" (click)="LoginModal.open()" *ngIf="!(user | async)?.uid">Login</a></li>
 				<!--<button type="button" class="btn btn-default" (click)="LoginModal.open()">test</button>-->
-				<li><a href="#" (click)="Logout()" *ngIf="user.uid">Logout</a></li>
+				<li><a href="#" (click)="Logout()" *ngIf="(user | async)?.uid">Logout</a></li>
 
 			</ul>
 		</div>
@@ -22,6 +22,62 @@
 
 </nav>
 
+<form *ngIf="(user | async)?.uid" class=" form-horizontal">
+	<div class="form-group">
+		<label class="col-lg-2 control-label" for="inputVehicle">Enter Vehicle</label>
+		<div class="col-lg-6">
+			<input class="form-control" id="inputVehicle" type="text" placeholder="Vehicle" #vehicleName>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-10 col-lg-offset-2">
+			<button class="btn btn-primary" type="submit" (click)="addVehicle(vehicleName.value);vehicleName.value = null">Add Vehicle</button>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+
+	<div class="col-md-4">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Vehicle Name</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let vehicle of (vehicles | async)">
+					<td>{{vehicle.$value}}</td>
+					<td><a class="editVehicle"><i (click)="EditModal.open()" class="edit fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                                            title="" data-original-title="Edit Vehicle" onmouseenter="$(this).tooltip('show')"></i></a></td>
+					<td><a class="add" (click)="addService(vehicle)"><i class="add fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                                            title="" data-original-title="Add Vehicle Services" onmouseenter="$(this).tooltip('show')"></i></a></td>
+					<td><a class="deleteVehicle"><i (click)="deleteVehicle(vehicle.$key)" class="delete fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                                            title="" data-original-title="Delete Vehicle" onmouseenter="$(this).tooltip('show')"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</form>
+
+<modal #EditModal>
+	<modal-header [show-close]="true">
+		<h4 class="modal-title">Edit Vehicle Name</h4>
+	</modal-header>
+	<form role="form">
+		<div class="form-group">
+			<label for="vehicle">Vehicle Name</label>
+			<input type="user name" class="form-control flex" id="userName" placeholder="Vehicle name">
+		</div>
+	</form>
+
+</modal>
+
 <modal #LoginModal>
 	<modal-header [show-close]="true">
 		<h4 class="modal-title">Please Log In</h4>
@@ -29,54 +85,23 @@
 	<form role="form">
 		<div class="form-group">
 			<label for="email">Username</label>
-			<input type="user name" class="form-control flex" id="userName" placeholder="Enter UserName" ng-model="email" />
+			<input type="user name" class="form-control flex" id="userName" placeholder="Enter UserName" />
 		</div>
 		<div class="form-group">
 			<label for="password">Password</label>
-			<input type="password" class="form-control" id="password" placeholder="Password" ng-model="password" />
+			<input type="password" class="form-control" id="password" placeholder="Password" />
 		</div>
 
 	</form>
 
 
 	<modal-footer>
-		<input type="image" src="/googlelogin.png" alt="Submit" class="googleButton" align="left" (click)="LoginGoogle()">
+		<input type="image" src="/googlelogin.png" alt="Submit" class="googleButton" align="left" (click)="LoginGoogle()" data-dismiss="modal"
+		/>
 	</modal-footer>
 </modal>
 
-<form *ngIf="user.uid" class="form-horizontal">
-	<fieldset>
-		<legend></legend>
-		<div class="form-group">
-			<label class="col-lg-2 control-label" for="inputVehicle">Enter Vehicle</label>
-			<div class="col-lg-10">
-				<input class="form-control" id="inputVehicle" [(ngModel)]="newVehicle" type="text" placeholder="Vehicle">
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-lg-10 col-lg-offset-2">
-				<button class="btn btn-primary" type="submit" (click)="AddVehicle()">Add Vehicle</button>
-			</div>
-		</div>
-		<br>
-		<br>
-		<br>
-		<div class="form-group">
-			<label class="col-lg-2 control-label" for="inputVehicle">Vehicle List</label>
-			<div class="col-lg-8">
-				<select class="form-control" multiple="">
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-				</select>
-			</div>
-		</div>
 
-
-	</fieldset>
-</form>
 
 
 <!--<div tabindex="-1" id="LoginModal" role="dialog">
