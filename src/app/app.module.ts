@@ -1,5 +1,4 @@
 import { VehicleService } from './vehicle.service';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
